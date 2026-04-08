@@ -151,7 +151,27 @@ const Matches = () => {
                                     </div>
 
                                     <button
-                                        onClick={() => requestMatch(rec._id, user.teachSkills[0] || 'Any', rec.teachSkills[0] || 'Any')}
+                                        onClick={() => {
+    const mySkill = user?.teachSkills?.[0];
+    const theirSkill = rec?.teachSkills?.[0];
+
+    if (!user) {
+        alert("User not loaded yet");
+        return;
+    }
+
+    if (!mySkill) {
+        alert("Please add your skills in profile first");
+        return;
+    }
+
+    if (!theirSkill) {
+        alert("Selected user has no skills");
+        return;
+    }
+
+    requestMatch(rec._id, mySkill, theirSkill);
+}}
                                         className="btn-primary py-2 px-4 text-sm w-full md:w-auto"
                                     >
                                         Request Match
