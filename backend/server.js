@@ -11,6 +11,7 @@ import userRoutes from './routes/users.js';
 import matchRoutes from './routes/matches.js';
 import messageRoutes from './routes/messages.js';
 import reviewRoutes from './routes/reviews.js';
+import rewardsRoutes from './routes/rewards.js';
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/matches', matchRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/rewards', rewardsRoutes);
 
 // Routes will go here
 app.get('/api/health', (req, res) => {

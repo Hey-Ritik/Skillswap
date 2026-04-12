@@ -96,6 +96,13 @@ router.put('/:matchId', authMiddleware, async (req, res) => {
         await match.save();
 
         if (status === 'accepted') {
+            // Award 5 points to both users
+            await User.updateMany(
+                { _id: { $in: [match.user1, match.user2] } },
+                { $inc: { points: 5 } }
+            );
+            console.log(`[POINTS] Awarded 5 points to users ${match.user1} and ${match.user2} for successful match`);
+
             const existingConv = await Conversation.findOne({
                 participants: { $all: [match.user1, match.user2] }
             });

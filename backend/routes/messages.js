@@ -42,6 +42,14 @@ router.post('/send/:userId', authMiddleware, async (req, res) => {
             await conversation.save();
         }
 
+        // Award 20 points if this is the first message in the conversation
+        if (!conversation.pointsAwarded) {
+            await User.findByIdAndUpdate(req.user.id, { $inc: { points: 20 } });
+            conversation.pointsAwarded = true;
+            await conversation.save();
+            console.log(`[POINTS] Awarded 20 points to user ${req.user.id} for starting a conversation`);
+        }
+
         const message = new Message({
             conversationId: conversation._id,
             sender: req.user.id,

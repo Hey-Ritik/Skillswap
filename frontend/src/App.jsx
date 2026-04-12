@@ -10,6 +10,7 @@ import Marketplace from './pages/Marketplace';
 import Matches from './pages/Matches';
 import Chat from './pages/Chat';
 import Ratings from './pages/Ratings';
+import Rewards from './pages/Rewards';
 
 // Layout with Navbar
 const Layout = ({ children }) => {
@@ -28,6 +29,7 @@ const Layout = ({ children }) => {
                 <Link to="/marketplace" className="hover:text-primary-600 transition-colors">Marketplace</Link>
                 <Link to="/matches" className="hover:text-primary-600 transition-colors">Matches</Link>
                 <Link to="/chat" className="hover:text-primary-600 transition-colors">Chat</Link>
+                <Link to="/rewards" className="hover:text-primary-600 transition-colors">Rewards</Link>
                 <Link to="/profile" className="hover:text-primary-600 transition-colors">Profile</Link>
               </div>
               <span className="font-bold text-slate-800 border-l border-slate-300 pl-4">Hey, {user.name.split(' ')[0]}</span>
@@ -69,6 +71,7 @@ function App() {
             <Route path="/marketplace" element={<ProtectedRoute><Marketplace /></ProtectedRoute>} />
             <Route path="/matches" element={<ProtectedRoute><Matches /></ProtectedRoute>} />
             <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+            <Route path="/rewards" element={<ProtectedRoute><Rewards /></ProtectedRoute>} />
             <Route path="/rate" element={<ProtectedRoute><Ratings /></ProtectedRoute>} />
           </Routes>
         </Layout>

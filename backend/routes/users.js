@@ -22,12 +22,23 @@ router.put('/profile', authMiddleware, async (req, res) => {
         let user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ message: 'User not found' });
 
+        // Calculate points for new skills
+        const oldSkillsCount = (user.teachSkills?.length || 0) + (user.learnSkills?.length || 0);
+        
         user.name = name || user.name;
         user.college = college || user.college;
         user.bio = bio !== undefined ? bio : user.bio;
         user.profilePic = profilePic || user.profilePic;
         user.teachSkills = teachSkills || user.teachSkills;
         user.learnSkills = learnSkills || user.learnSkills;
+
+        const newSkillsCount = (user.teachSkills?.length || 0) + (user.learnSkills?.length || 0);
+        
+        if (newSkillsCount > oldSkillsCount) {
+            const addedSkills = newSkillsCount - oldSkillsCount;
+            user.points = (user.points || 0) + (addedSkills * 10);
+            console.log(`[POINTS] Awarded ${addedSkills * 10} points to user ${user._id} for adding skills`);
+        }
 
         await user.save();
 
